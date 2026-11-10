@@ -1,0 +1,41 @@
+{
+  "name": "movoa",
+  "displayName": "Movoa: AI Video Generator with Sound",
+  "description": "Unlimited AI video generator with sound: on paid plans the tenth take of a shot costs what the first did, and your first clip is free to make right now. This extension generates clips with sound, or animates a workspace image, straight into your project with your Movoa API key.",
+  "version": "0.1.0",
+  "publisher": "movoa",
+  "author": "Movoa (https://movoa.ai)",
+  "license": "MIT",
+  "icon": "icon.png",
+  "homepage": "https://movoa.ai/?utm_source=vscode&utm_medium=extension",
+  "repository": { "type": "git", "url": "https://github.com/hanshs474/movoa-vscode" },
+  "bugs": { "url": "https://github.com/hanshs474/movoa-vscode/issues" },
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other", "Visualization"],
+  "keywords": ["ai video generator", "text to video", "image to video", "video with sound", "movoa", "seedance", "veo", "minimax"],
+  "main": "./extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      { "command": "movoa.generateVideo", "title": "Generate Video", "category": "Movoa" },
+      { "command": "movoa.animateImage", "title": "Animate Image into a Video", "category": "Movoa" },
+      { "command": "movoa.showCredits", "title": "Show Credits", "category": "Movoa" },
+      { "command": "movoa.setApiKey", "title": "Set API Key", "category": "Movoa" }
+    ],
+    "menus": {
+      "explorer/context": [
+        { "command": "movoa.animateImage", "when": "resourceExtname =~ /\\.(png|jpe?g|webp)$/i", "group": "movoa" }
+      ]
+    },
+    "configuration": {
+      "title": "Movoa",
+      "properties": {
+        "movoa.outputFolder": { "type": "string", "default": "assets", "description": "Workspace folder where new clips are saved." },
+        "movoa.model": { "type": "string", "default": "minimax-h3", "enum": ["minimax-h3", "seedance-2-5", "seedance-2", "seedance-2-fast", "seedance-2-mini", "veo-3-1-fast"], "description": "Video model. Options a model does not take are snapped to the nearest one it does." },
+        "movoa.duration": { "type": "number", "default": 6, "minimum": 4, "maximum": 30, "description": "Clip length in seconds (snapped to what the model takes)." },
+        "movoa.resolution": { "type": "string", "default": "480p", "enum": ["480p", "720p", "768p"], "description": "Resolution (snapped to what the model takes)." }
+      }
+    }
+  },
+  "scripts": { "test": "node test/client.test.js" }
+}
